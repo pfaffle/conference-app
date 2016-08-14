@@ -35,7 +35,7 @@ import nl.babbq.conference2015.utils.Utils;
  */
 public class Session implements Serializable, Parcelable {
 
-    public static final String CONFERENCES = "conferences";
+    public static final String SESSIONS = "sessions";
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT
             = new SimpleDateFormat("d/M/yyy HH:mm:ss", Locale.ENGLISH);
 
@@ -124,16 +124,16 @@ public class Session implements Serializable, Parcelable {
     }
 
     /**
-     * Loads the conferences items from the sharedPreferences
+     * Loads the sessions from sharedPreferences
      * @param context a valid context
      * @return the list of talks
      */
     public static List<Session> loadFromPreferences(Context context) {
         List<Session> list = new ArrayList<>();
         SharedPreferences prefs = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
-        Set<String> conferences = prefs.getStringSet(CONFERENCES, new HashSet<String>());
-        for (String conferenceLine: conferences) {
-            list.add(new Session(conferenceLine.split("\t")));
+        Set<String> sessions = prefs.getStringSet(SESSIONS, new HashSet<String>());
+        for (String sessionLine : sessions) {
+            list.add(new Session(sessionLine.split("\t")));
         }
 
         Collections.sort(list, new Comparator<Session>() {
@@ -176,7 +176,7 @@ public class Session implements Serializable, Parcelable {
         for (Session session : sessions) {
             stringSet.add(TextUtils.join("\t", session.getCSVLine()));
         }
-        prefsEditor.putStringSet(CONFERENCES, stringSet);
+        prefsEditor.putStringSet(SESSIONS, stringSet);
         prefsEditor.apply();
     }
 

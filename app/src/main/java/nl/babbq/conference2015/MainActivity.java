@@ -37,7 +37,7 @@ import nl.babbq.conference2015.utils.Utils;
 
 
 /**
- * Main activity of the application, list all conferences slots into a listView
+ * Main activity of the application, which displays sessions in a listView.
  * @author Arnaud Camus
  */
 public class MainActivity extends AppCompatActivity
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
             Response.ErrorListener,
             BugDroid.OnRefreshClickListener {
 
-    public static final String CONFERENCES = "conferences";
+    public static final String SESSIONS = "sessions";
     public static final String URL = "https://docs.google.com/spreadsheets/d/1a6UtL_YiKu2j6TgrnhpPcxfwuFX69Ht_UMOzdcb08Zs/pub?gid=0&single=true&output=tsv";
 
     private MainPagerAdapter mAdapter;
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity
 
         if (savedInstanceState != null) {
             // Restore value of members from saved state
-            sessions.addAll(savedInstanceState.<Session>getParcelableArrayList(CONFERENCES));
+            sessions.addAll(savedInstanceState.<Session>getParcelableArrayList(SESSIONS));
         } else {
             sessions.addAll(Session.loadFromPreferences(this));
         }
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
-        bundle.putParcelableArrayList(CONFERENCES, sessions);
+        bundle.putParcelableArrayList(SESSIONS, sessions);
     }
 
     private void setupViewPager(Bundle savedInstanceState) {
