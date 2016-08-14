@@ -21,7 +21,7 @@ import nl.babbq.conference2015.objects.Session;
 import nl.babbq.conference2015.utils.Utils;
 
 /**
- * Display the detail for one {@link Session}
+ * Display the details for one {@link Session}
  * Must receive one {@link Session} object in its {@link android.content.Intent}
  *
  * @author Arnaud Camus
@@ -29,8 +29,8 @@ import nl.babbq.conference2015.utils.Utils;
 public class ConferenceActivity extends AppCompatActivity {
 
     Session session;
-    SimpleDateFormat simpleDateFormat;
-    SimpleDateFormat simpleDateFormat2;
+    SimpleDateFormat startTimeFormat;
+    SimpleDateFormat endTimeFormat;
 
     FloatingActionButton fab;
 
@@ -53,8 +53,8 @@ public class ConferenceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conference);
 
-        simpleDateFormat = new SimpleDateFormat("E, HH:mm", Locale.ENGLISH);
-        simpleDateFormat2 = new SimpleDateFormat(" - HH:mm", Locale.ENGLISH);
+        startTimeFormat = new SimpleDateFormat("E, HH:mm", Locale.ENGLISH);
+        endTimeFormat = new SimpleDateFormat(" - HH:mm", Locale.ENGLISH);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -80,23 +80,23 @@ public class ConferenceActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.location)).setText(String.format(getString(R.string.location),
                 session.getLocation()));
         ((TextView)findViewById(R.id.date)).setText(
-                simpleDateFormat.format(session.getStartDate())
-                        + simpleDateFormat2.format(session.getEndDate()));
+                startTimeFormat.format(session.getStartDate())
+                        + endTimeFormat.format(session.getEndDate()));
 
-        if (!session.getSpeakerImageUrl().equals("")) {
+        if (!session.getSpeakerImageUrl().isEmpty()) {
             Picasso.with(getApplicationContext())
                     .load(session.getSpeakerImageUrl())
                     .transform(((BaseApplication) getApplicationContext()).mPicassoTransformation)
                     .into((ImageView) findViewById(R.id.image));
         }
-        setupFAB();
+        setupFavoriteActionButton();
     }
 
     /**
      * Setup a fab to allow the
      * user to favorite the current {@link Session}
      */
-    private void setupFAB() {
+    private void setupFavoriteActionButton() {
         fab.setImageResource((session.isFavorite(getBaseContext())
                         ? R.drawable.ic_favorite_white_24dp
                         : R.drawable.ic_favorite_outline_white_24dp));
