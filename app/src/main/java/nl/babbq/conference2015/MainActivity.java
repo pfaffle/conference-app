@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         BugDroid.OnRefreshClickListener {
 
     public static final String SESSIONS = "sessions";
-    public static final String URL = "https://docs.google.com/spreadsheets/d/1a6UtL_YiKu2j6TgrnhpPcxfwuFX69Ht_UMOzdcb08Zs/pub?gid=0&single=true&output=tsv";
+    public static final String URL = "https://docs.google.com/spreadsheets/d/1DU1IIh5ER6wtahz1dD0hFojayHDN0D5L6BeqPjkc8r4/export?format=tsv&id=1DU1IIh5ER6wtahz1dD0hFojayHDN0D5L6BeqPjkc8r4&gid=0";
 
     private MainPagerAdapter mAdapter;
     private ViewPager mViewPager;
