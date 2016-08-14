@@ -18,18 +18,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import nl.babbq.conference2015.objects.Conference;
+import nl.babbq.conference2015.objects.Session;
 import nl.babbq.conference2015.utils.Utils;
 
 /**
- * Display the detail for one {@link Conference}
- * Must receive one {@link Conference} object in its {@link android.content.Intent}
+ * Display the detail for one {@link Session}
+ * Must receive one {@link Session} object in its {@link android.content.Intent}
  *
  * @author Arnaud Camus
  */
 public class ConferenceActivity extends AppCompatActivity {
 
-    Conference mConference;
+    Session session;
     SimpleDateFormat simpleDateFormat;
     SimpleDateFormat simpleDateFormat2;
 
@@ -72,20 +72,20 @@ public class ConferenceActivity extends AppCompatActivity {
             });
         }
 
-        mConference = getIntent().getParcelableExtra("conference");
+        session = getIntent().getParcelableExtra("conference");
 
         fab = (FloatingActionButton)findViewById(R.id.fab);
-        ((TextView)findViewById(R.id.headline)).setText(mConference.getHeadeline());
-        ((TextView)findViewById(R.id.speaker)).setText(mConference.getSpeaker());
-        ((TextView)findViewById(R.id.text)).setText(mConference.getText());
+        ((TextView)findViewById(R.id.headline)).setText(session.getHeadeline());
+        ((TextView)findViewById(R.id.speaker)).setText(session.getSpeaker());
+        ((TextView)findViewById(R.id.text)).setText(session.getText());
         ((TextView)findViewById(R.id.location)).setText(String.format(getString(R.string.location),
-                mConference.getLocation()));
+                session.getLocation()));
         ((TextView)findViewById(R.id.date)).setText(
-                simpleDateFormat.format(new Date(mConference.getStartDate()))
-                        + simpleDateFormat2.format(new Date(mConference.getEndDate())));
+                simpleDateFormat.format(new Date(session.getStartDate()))
+                        + simpleDateFormat2.format(new Date(session.getEndDate())));
 
         Picasso.with(getApplicationContext())
-                .load(mConference.getSpeakerImageUrl())
+                .load(session.getSpeakerImageUrl())
                 .transform(((BaseApplication) getApplicationContext()).mPicassoTransformation)
                 .into((ImageView) findViewById(R.id.image));
         setupFAB();
@@ -93,16 +93,16 @@ public class ConferenceActivity extends AppCompatActivity {
 
     /**
      * Setup a fab to allow the
-     * user to favorite the current {@link nl.babbq.conference2015.objects.Conference}
+     * user to favorite the current {@link Session}
      */
     private void setupFAB() {
-        fab.setImageResource((mConference.isFavorite(getBaseContext())
+        fab.setImageResource((session.isFavorite(getBaseContext())
                         ? R.drawable.ic_favorite_white_24dp
                         : R.drawable.ic_favorite_outline_white_24dp));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mConference.toggleFavorite(getBaseContext())) {
+                if (session.toggleFavorite(getBaseContext())) {
                     fab.setImageResource(R.drawable.ic_favorite_white_24dp);
                 } else {
                     fab.setImageResource(R.drawable.ic_favorite_outline_white_24dp);

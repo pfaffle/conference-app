@@ -14,23 +14,23 @@ import java.util.List;
 import java.util.Locale;
 
 import nl.babbq.conference2015.R;
-import nl.babbq.conference2015.objects.Conference;
+import nl.babbq.conference2015.objects.Session;
 
 /**
  * Adapter for the {@link nl.babbq.conference2015.MainActivity},
- * display either a Conference slot or a break.
+ * display either a Session slot or a break.
  * @author Arnaud Camus
  */
 public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int VIEW_HEADER = 0;
     public static final int VIEW_CONFERENCE = 1;
 
-    private List<Conference> mData;
+    private List<Session> mData;
     private Context mContext;
     private SimpleDateFormat simpleDateFormat;
     private SimpleDateFormat simpleDateFormat2;
 
-    public MainAdapter(Context context, List<Conference> objects) {
+    public MainAdapter(Context context, List<Session> objects) {
         mData = objects;
         mContext = context.getApplicationContext();
         simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.ENGLISH);

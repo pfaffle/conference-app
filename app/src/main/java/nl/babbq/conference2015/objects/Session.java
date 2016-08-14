@@ -30,10 +30,10 @@ import nl.babbq.conference2015.utils.PreferenceManager;
 import nl.babbq.conference2015.utils.Utils;
 
 /**
- * Conference object, created by the CSV file
+ * Session object, created by the CSV file
  * @author Arnaud Camus
  */
-public class Conference implements Serializable, Parcelable {
+public class Session implements Serializable, Parcelable {
 
     public static final String CONFERENCES = "conferences";
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT
@@ -50,7 +50,7 @@ public class Conference implements Serializable, Parcelable {
     private String location;
     private Calendar calendar;
 
-    public Conference(@NonNull String[] fromCSV) {
+    public Session(@NonNull String[] fromCSV) {
         CSVLine = fromCSV;
         startDate = fromCSV[0];
         endDate = fromCSV[1];
@@ -101,26 +101,26 @@ public class Conference implements Serializable, Parcelable {
 
     /**
      * Parse a inputStream reader and generate the list
-     * of {@link Conference}.
+     * of {@link Session}.
      */
-    public static List<Conference> parseInputStream(Context context, InputStreamReader stream) {
-        List<Conference> conferences = new ArrayList<>();
+    public static List<Session> parseInputStream(Context context, InputStreamReader stream) {
+        List<Session> sessions = new ArrayList<>();
         try {
             CSVReader reader = new CSVReader(stream, '\t');
             reader.readNext(); // file headline
             String[] nextLine;
             while ((nextLine = reader.readNext()) != null) {
                 if (nextLine.length > 1 && !Utils.arrayContains(nextLine, context.getString(R.string.program_d2))) {
-                    conferences.add(new Conference(nextLine));
+                    sessions.add(new Session(nextLine));
                 }
             }
-            saveInPreferences(context, conferences);
+            saveInPreferences(context, sessions);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return conferences;
+        return sessions;
     }
 
     /**
@@ -128,20 +128,20 @@ public class Conference implements Serializable, Parcelable {
      * @param context a valid context
      * @return the list of talks
      */
-    public static List<Conference> loadFromPreferences(Context context) {
-        List<Conference> list = new ArrayList<>();
+    public static List<Session> loadFromPreferences(Context context) {
+        List<Session> list = new ArrayList<>();
         SharedPreferences prefs = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
         Set<String> conferences = prefs.getStringSet(CONFERENCES, new HashSet<String>());
         for (String conferenceLine: conferences) {
-            list.add(new Conference(conferenceLine.split("\t")));
+            list.add(new Session(conferenceLine.split("\t")));
         }
 
-        Collections.sort(list, new Comparator<Conference>() {
+        Collections.sort(list, new Comparator<Session>() {
             @Override
-            public int compare(Conference conference, Conference conference2) {
+            public int compare(Session session, Session session2) {
                 try {
-                    return SIMPLE_DATE_FORMAT.parse(conference.startDate)
-                            .before(SIMPLE_DATE_FORMAT.parse(conference2.startDate)) ? -1 : 1;
+                    return SIMPLE_DATE_FORMAT.parse(session.startDate)
+                            .before(SIMPLE_DATE_FORMAT.parse(session2.startDate)) ? -1 : 1;
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -153,12 +153,12 @@ public class Conference implements Serializable, Parcelable {
 
     /**
      * Find the next available talk
-     * @param data a list of Conference objects
+     * @param data a list of Session objects
      * @return the position of the next item, or 0
      */
-    public static int findNextEventPosition(@NonNull List<Conference> data) {
+    public static int findNextEventPosition(@NonNull List<Session> data) {
         int position = 0;
-        for (Conference c: data) {
+        for (Session c: data) {
             if (c.isPast()) {
                 position++;
             } else {
@@ -169,12 +169,12 @@ public class Conference implements Serializable, Parcelable {
     }
 
 
-    private static void saveInPreferences(Context context, List<Conference> conferences) {
+    private static void saveInPreferences(Context context, List<Session> sessions) {
         SharedPreferences.Editor prefsEditor
                 = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE).edit();
         Set<String> stringSet = new HashSet<>();
-        for (Conference conference: conferences) {
-            stringSet.add(TextUtils.join("\t", conference.getCSVLine()));
+        for (Session session : sessions) {
+            stringSet.add(TextUtils.join("\t", session.getCSVLine()));
         }
         prefsEditor.putStringSet(CONFERENCES, stringSet);
         prefsEditor.apply();
@@ -269,7 +269,7 @@ public class Conference implements Serializable, Parcelable {
         dest.writeSerializable(this.calendar);
     }
 
-    protected Conference(Parcel in) {
+    protected Session(Parcel in) {
         CSVLine = new String[in.readInt()];
         in.readStringArray(this.CSVLine);
         this.startDate = in.readString();
@@ -282,13 +282,13 @@ public class Conference implements Serializable, Parcelable {
         this.calendar = (Calendar) in.readSerializable();
     }
 
-    public static final Creator<Conference> CREATOR = new Creator<Conference>() {
-        public Conference createFromParcel(Parcel source) {
-            return new Conference(source);
+    public static final Creator<Session> CREATOR = new Creator<Session>() {
+        public Session createFromParcel(Parcel source) {
+            return new Session(source);
         }
 
-        public Conference[] newArray(int size) {
-            return new Conference[size];
+        public Session[] newArray(int size) {
+            return new Session[size];
         }
     };
 }

@@ -17,7 +17,7 @@ As previously said, the app is relatively simple, the goal was not to reproduce 
 
 The app contains:
  * A schedule listing
- * The conference's details view
+ * The session's details view
  * An option to favorite talks
 
 And you can also:

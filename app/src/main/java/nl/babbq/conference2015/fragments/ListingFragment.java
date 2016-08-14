@@ -23,7 +23,7 @@ import nl.babbq.conference2015.MainActivity;
 import nl.babbq.conference2015.R;
 import nl.babbq.conference2015.adapters.HasAdapter;
 import nl.babbq.conference2015.adapters.MainAdapter;
-import nl.babbq.conference2015.objects.Conference;
+import nl.babbq.conference2015.objects.Session;
 import nl.babbq.conference2015.objects.ConferenceDay;
 import nl.babbq.conference2015.utils.DividerItemDecoration;
 import nl.babbq.conference2015.utils.ItemClickSupport;
@@ -38,13 +38,13 @@ public class ListingFragment extends Fragment implements HasAdapter {
     private final static String DAY = "day";
 
     private RecyclerView mRecyclerView;
-    private List<Conference> mData = new ArrayList<>();
+    private List<Session> mData = new ArrayList<>();
     private ConferenceDay mDay;
     private MainAdapter mAdapter;
 
-    public static ListingFragment newInstance(ArrayList<Conference> conferences, final ConferenceDay day) {
+    public static ListingFragment newInstance(ArrayList<Session> sessions, final ConferenceDay day) {
         Bundle args = new Bundle();
-        args.putParcelableArrayList(DATA, filterList(conferences, day));
+        args.putParcelableArrayList(DATA, filterList(sessions, day));
         args.putSerializable(DAY, day);
         ListingFragment fragment = new ListingFragment();
         fragment.setArguments(args);
@@ -60,7 +60,7 @@ public class ListingFragment extends Fragment implements HasAdapter {
         super.onCreate(bundle);
         if (getArguments() != null) {
             mDay = (ConferenceDay) getArguments().getSerializable(DAY);
-            mData.addAll(getArguments().<Conference>getParcelableArrayList(DATA));
+            mData.addAll(getArguments().<Session>getParcelableArrayList(DATA));
         }
     }
 
@@ -93,7 +93,7 @@ public class ListingFragment extends Fragment implements HasAdapter {
         });
 
         if (mDay.isToday()) {
-            int position = Conference.findNextEventPosition(mData);
+            int position = Session.findNextEventPosition(mData);
             mRecyclerView.smoothScrollToPosition(position);
         }
         return mRecyclerView;
@@ -111,7 +111,7 @@ public class ListingFragment extends Fragment implements HasAdapter {
     public void notifyDataSetChanged() {
         if (isAdded() && mAdapter != null) {
             if (getActivity() instanceof MainActivity) {
-                ArrayList<Conference> newList = filterList(
+                ArrayList<Session> newList = filterList(
                             ((MainActivity)getActivity()).getConferences(), mDay);
                 if (newList != null) {
                     mData.clear();
@@ -122,9 +122,9 @@ public class ListingFragment extends Fragment implements HasAdapter {
         }
     }
 
-    private static ArrayList<Conference> filterList(ArrayList<Conference> list, final ConferenceDay day) {
-        Predicate<Conference> aDay = new Predicate<Conference>() {
-            public boolean apply(Conference conference) {
+    private static ArrayList<Session> filterList(ArrayList<Session> list, final ConferenceDay day) {
+        Predicate<Session> aDay = new Predicate<Session>() {
+            public boolean apply(Session conference) {
                 return conference.getStartDate().startsWith(day.getDay());
             }
         };

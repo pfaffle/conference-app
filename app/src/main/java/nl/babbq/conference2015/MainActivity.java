@@ -29,7 +29,7 @@ import nl.babbq.conference2015.animations.BugDroid;
 import nl.babbq.conference2015.fragments.ListingFragment;
 import nl.babbq.conference2015.network.TSVRequest;
 import nl.babbq.conference2015.network.VolleySingleton;
-import nl.babbq.conference2015.objects.Conference;
+import nl.babbq.conference2015.objects.Session;
 import nl.babbq.conference2015.objects.ConferenceDay;
 import nl.babbq.conference2015.utils.PreferenceManager;
 import nl.babbq.conference2015.utils.SendNotification;
@@ -41,7 +41,7 @@ import nl.babbq.conference2015.utils.Utils;
  * @author Arnaud Camus
  */
 public class MainActivity extends AppCompatActivity
-        implements Response.Listener<List<Conference>>,
+        implements Response.Listener<List<Session>>,
             Response.ErrorListener,
             BugDroid.OnRefreshClickListener {
 
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity
 
     private MainPagerAdapter mAdapter;
     private ViewPager mViewPager;
-    private ArrayList<Conference> mConferences = new ArrayList<>();
+    private ArrayList<Session> sessions = new ArrayList<>();
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
 
@@ -93,13 +93,13 @@ public class MainActivity extends AppCompatActivity
 
         if (savedInstanceState != null) {
             // Restore value of members from saved state
-            mConferences.addAll(savedInstanceState.<Conference>getParcelableArrayList(CONFERENCES));
+            sessions.addAll(savedInstanceState.<Session>getParcelableArrayList(CONFERENCES));
         } else {
-            mConferences.addAll(Conference.loadFromPreferences(this));
+            sessions.addAll(Session.loadFromPreferences(this));
         }
         setupViewPager(savedInstanceState);
         initVolley(this);
-        if (mConferences.size() == 0) {
+        if (sessions.size() == 0) {
             mToolbar.post(new Runnable() {
                 @Override
                 public void run() {
@@ -122,15 +122,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
-        bundle.putParcelableArrayList(CONFERENCES, mConferences);
+        bundle.putParcelableArrayList(CONFERENCES, sessions);
     }
 
     private void setupViewPager(Bundle savedInstanceState) {
         mAdapter = new MainPagerAdapter(getSupportFragmentManager());
         ConferenceDay day1 = new ConferenceDay(1, "11/12/2015");
         ConferenceDay day2 = new ConferenceDay(2, "11/13/2015");
-        mAdapter.addFragment(ListingFragment.newInstance(mConferences, day1), getString(R.string.day, 1));
-        mAdapter.addFragment(ListingFragment.newInstance(mConferences, day2), getString(R.string.day, 2));
+        mAdapter.addFragment(ListingFragment.newInstance(sessions, day1), getString(R.string.day, 1));
+        mAdapter.addFragment(ListingFragment.newInstance(sessions, day2), getString(R.string.day, 2));
         mViewPager.setAdapter(mAdapter);
         mViewPager.setPageMargin(Utils.dpToPx(8, getBaseContext()));
         mTabLayout.setupWithViewPager(mViewPager);
@@ -205,9 +205,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onResponse(List<Conference> response) {
-        mConferences.clear();
-        mConferences.addAll(response);
+    public void onResponse(List<Session> response) {
+        sessions.clear();
+        sessions.addAll(response);
         mAdapter.notifyDataSetChanged(); //might not work
         onUpdateDone();
     }
@@ -225,8 +225,8 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public ArrayList<Conference> getConferences() {
-        return mConferences;
+    public ArrayList<Session> getConferences() {
+        return sessions;
     }
 
     private final class MainPagerAdapter extends FragmentPagerAdapter {
