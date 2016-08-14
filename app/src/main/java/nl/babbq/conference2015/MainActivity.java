@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public ArrayList<Session> getConferences() {
+    public ArrayList<Session> getSessions() {
         return sessions;
     }
 

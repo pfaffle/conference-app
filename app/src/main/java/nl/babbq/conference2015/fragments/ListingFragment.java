@@ -114,7 +114,7 @@ public class ListingFragment extends Fragment implements HasAdapter {
         if (isAdded() && mAdapter != null) {
             if (getActivity() instanceof MainActivity) {
                 ArrayList<Session> newList = filterList(
-                            ((MainActivity)getActivity()).getConferences(), mDay);
+                            ((MainActivity)getActivity()).getSessions(), mDay);
                 if (newList != null) {
                     mData.clear();
                     mData.addAll(newList);
