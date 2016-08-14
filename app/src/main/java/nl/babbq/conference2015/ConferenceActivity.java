@@ -14,10 +14,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import org.joda.time.Instant;
-
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 import nl.babbq.conference2015.objects.Session;
@@ -77,7 +74,7 @@ public class ConferenceActivity extends AppCompatActivity {
         session = getIntent().getParcelableExtra("conference");
 
         fab = (FloatingActionButton)findViewById(R.id.fab);
-        ((TextView)findViewById(R.id.headline)).setText(session.getHeadeline());
+        ((TextView)findViewById(R.id.headline)).setText(session.getTitle());
         ((TextView)findViewById(R.id.speaker)).setText(session.getSpeaker());
         ((TextView)findViewById(R.id.text)).setText(session.getText());
         ((TextView)findViewById(R.id.location)).setText(String.format(getString(R.string.location),

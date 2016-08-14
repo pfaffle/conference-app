@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -70,15 +69,15 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             .append(simpleDateFormat.format(mData.get(position).getStartDate()))
                             .append(simpleDateFormat2.format(mData.get(position).getEndDate()))
                             .toString());
-            ((ViewHolderHeader)holder).headline.setText(mData.get(position).getHeadeline());
+            ((ViewHolderHeader)holder).headline.setText(mData.get(position).getTitle());
 
-            if (mData.get(position).getHeadeline().equals(mContext.getString(R.string.coffee_break))) {
+            if (mData.get(position).getTitle().equals(mContext.getString(R.string.coffee_break))) {
                 holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.babbq_orange));
                 ((ViewHolderHeader)holder).iconHeader.setImageResource(R.drawable.coffee);
-            } else if (mData.get(position).getHeadeline().equals(mContext.getString(R.string.lunch))) {
+            } else if (mData.get(position).getTitle().equals(mContext.getString(R.string.lunch))) {
                 holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.babbq_purple));
                 ((ViewHolderHeader)holder).iconHeader.setImageResource(R.drawable.toast);
-            } else if (mData.get(position).getHeadeline().equals(mContext.getString(R.string.tba))) {
+            } else if (mData.get(position).getTitle().equals(mContext.getString(R.string.tba))) {
                 holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.windowBackground));
                 ((ViewHolderHeader)holder).iconHeader.setImageDrawable(null);
             } else {
@@ -94,7 +93,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             .toString());
 
             ((ViewHolderConference)holder).location.setText(mData.get(position).getLocation());
-            ((ViewHolderConference)holder).headline.setText(mData.get(position).getHeadeline());
+            ((ViewHolderConference)holder).headline.setText(mData.get(position).getTitle());
 
             if (mData.get(position).isFavorite(mContext)) {
                 ((ViewHolderConference) holder).favorite.setVisibility(View.VISIBLE);

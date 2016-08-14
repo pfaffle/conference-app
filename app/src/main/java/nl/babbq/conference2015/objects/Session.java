@@ -15,7 +15,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,7 +46,7 @@ public class Session implements Serializable, Parcelable {
     private String[] CSVLine;
     private Date startDate;
     private Date endDate;
-    private String headeline;
+    private String title;
     private String speaker;
     private String speakerImageUrl;
     private String text;
@@ -65,7 +64,7 @@ public class Session implements Serializable, Parcelable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        headeline = fromCSV[2];
+        title = fromCSV[2];
         if (fromCSV.length > 12) {
             location = fromCSV[9];
             speaker = fromCSV[10];
@@ -87,9 +86,9 @@ public class Session implements Serializable, Parcelable {
     public boolean toggleFavorite(Context ctx) {
         PreferenceManager prefManager =
                 new PreferenceManager(ctx.getSharedPreferences("MyPref", Context.MODE_PRIVATE));
-        boolean actual = prefManager.favorite(getHeadeline())
+        boolean actual = prefManager.favorite(getTitle())
                 .getOr(false);
-        prefManager.favorite(getHeadeline())
+        prefManager.favorite(getTitle())
                 .put(!actual)
                 .apply();
         return !actual;
@@ -190,7 +189,7 @@ public class Session implements Serializable, Parcelable {
     public boolean isFavorite(Context ctx) {
         PreferenceManager prefManager =
                 new PreferenceManager(ctx.getSharedPreferences("MyPref", Context.MODE_PRIVATE));
-        return prefManager.favorite(getHeadeline())
+        return prefManager.favorite(getTitle())
                 .getOr(false);
     }
 
@@ -210,12 +209,12 @@ public class Session implements Serializable, Parcelable {
         this.endDate = endDate;
     }
 
-    public String getHeadeline() {
-        return headeline;
+    public String getTitle() {
+        return title;
     }
 
-    public void setHeadeline(String headeline) {
-        this.headeline = headeline;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getSpeaker() {
@@ -263,7 +262,7 @@ public class Session implements Serializable, Parcelable {
         dest.writeStringArray(this.CSVLine);
         dest.writeString(new Instant(this.startDate).toString());
         dest.writeString(new Instant(this.endDate).toString());
-        dest.writeString(this.headeline);
+        dest.writeString(this.title);
         dest.writeString(this.speaker);
         dest.writeString(this.speakerImageUrl);
         dest.writeString(this.text);
@@ -276,7 +275,7 @@ public class Session implements Serializable, Parcelable {
         in.readStringArray(this.CSVLine);
         this.startDate = Instant.parse(in.readString()).toDate();
         this.endDate = Instant.parse(in.readString()).toDate();
-        this.headeline = in.readString();
+        this.title = in.readString();
         this.speaker = in.readString();
         this.speakerImageUrl = in.readString();
         this.text = in.readString();
