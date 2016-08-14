@@ -22,8 +22,7 @@ import nl.babbq.conference2015.objects.AboutItem;
  * This activity gives access to:
  *  - A navigation mode to join the conference site.
  *  - The list of Open Source libraries used.
- *  - A link to my Twitter :)
- *  - An access to the feedback form for the Organization
+ *  - Links to the authors' Twitter pages
  *
  *  @author Arnaud Camus
  */
@@ -66,9 +65,6 @@ public class AboutActivity extends AppCompatActivity implements AdapterView.OnIt
         mAboutItems.add(new AboutItem(getString(R.string.author),
                 getString(R.string.author_text),
                 R.drawable.ic_mood_grey600_48dp));
-        mAboutItems.add(new AboutItem(getString(R.string.evaluation),
-                getString(R.string.evaluation_text),
-                R.drawable.ic_check_box_grey600_48dp));
     }
 
     @Override
@@ -76,7 +72,7 @@ public class AboutActivity extends AppCompatActivity implements AdapterView.OnIt
         switch (position) {
             case 0: //Launch Navigation to the conference site
                 Intent i = new Intent(android.content.Intent.ACTION_VIEW,
-                        Uri.parse("https://www.google.nl/maps/place/Johan+Huizingalaan+763A,+1066+VH+Amsterdam/@52.3430396,4.8270918,17z/data=!3m1!4b1!4m2!3m1!1s0x47c5e18eae78495d:0x69f2205bc0250fb4"));
+                        Uri.parse(getString(R.string.venue_map_url)));
                 startActivity(i);
                 break;
             case 1: // Display the Open Source projects used for this application
@@ -89,15 +85,8 @@ public class AboutActivity extends AppCompatActivity implements AdapterView.OnIt
                 i1.putExtra(Libs.BUNDLE_THEME, R.style.AppThemeBar);
                 startActivity(i1);
                 break;
-            case 2: //Open my twitter ;)
-                Intent i2 = new Intent(Intent.ACTION_VIEW);
-                i2.setData(Uri.parse("http://twitter.com/lynfogeek"));
-                startActivity(i2);
-                break;
-            case 3: //Open the feedback form
-                Intent i3 = new Intent(Intent.ACTION_VIEW);
-                i3.setData(Uri.parse("https://docs.google.com/forms/d/1nliavYLhvnAg2CbobJYeOq0HJu6uVO4OxeR4ZqfYVS0/viewform"));
-                startActivity(i3);
+            case 2: // Authors
+                // TODO make this a list view of both authors and links to both our Twitters
                 break;
         }
     }

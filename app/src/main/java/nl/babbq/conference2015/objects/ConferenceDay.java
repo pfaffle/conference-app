@@ -3,7 +3,6 @@ package nl.babbq.conference2015.objects;
 import org.joda.time.DateTime;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
