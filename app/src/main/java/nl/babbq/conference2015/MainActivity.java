@@ -25,6 +25,7 @@ import com.android.volley.VolleyError;
 import org.joda.time.Instant;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import nl.babbq.conference2015.animations.BugDroid;
@@ -40,12 +41,13 @@ import nl.babbq.conference2015.utils.Utils;
 
 /**
  * Main activity of the application, which displays sessions in a listView.
+ *
  * @author Arnaud Camus
  */
 public class MainActivity extends AppCompatActivity
         implements Response.Listener<List<Session>>,
-            Response.ErrorListener,
-            BugDroid.OnRefreshClickListener {
+        Response.ErrorListener,
+        BugDroid.OnRefreshClickListener {
 
     public static final String SESSIONS = "sessions";
     public static final String URL = "https://docs.google.com/spreadsheets/d/1a6UtL_YiKu2j6TgrnhpPcxfwuFX69Ht_UMOzdcb08Zs/pub?gid=0&single=true&output=tsv";
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity
 
     private VolleySingleton mVolley;
     private BugDroid mAnimatedBugDroid;
+    private List<ConferenceDay> conferenceDays;
 
     /**
      * Enable to share views across activities with animation
@@ -82,12 +85,16 @@ public class MainActivity extends AppCompatActivity
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        mAnimatedBugDroid = new BugDroid((ImageView)findViewById(R.id.bugDroid),
+        mAnimatedBugDroid = new BugDroid((ImageView) findViewById(R.id.bugDroid),
                 findViewById(R.id.loadingFrame),
                 findViewById(R.id.refreshButton),
                 mTabLayout,
                 this);
-
+        conferenceDays = Arrays.asList(
+                new ConferenceDay(Instant.parse("2016-08-18").toDate(), getString(R.string.day1)),
+                new ConferenceDay(Instant.parse("2016-08-19").toDate(), getString(R.string.day2)),
+                new ConferenceDay(Instant.parse("2016-08-20").toDate(), getString(R.string.day3))
+        );
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             mToolbar.setTitle(getString(R.string.app_name));
@@ -129,16 +136,23 @@ public class MainActivity extends AppCompatActivity
 
     private void setupViewPager(Bundle savedInstanceState) {
         mAdapter = new MainPagerAdapter(getSupportFragmentManager());
-        ConferenceDay day1 = new ConferenceDay(1, Instant.parse("2016-08-18").toDate());
-        ConferenceDay day2 = new ConferenceDay(2, Instant.parse("2016-08-19").toDate());
-//        ConferenceDay day3 = new ConferenceDay(3, Instant.parse("2016-08-20").toDate());
-        mAdapter.addFragment(ListingFragment.newInstance(sessions, day1), getString(R.string.day, 1));
-        mAdapter.addFragment(ListingFragment.newInstance(sessions, day2), getString(R.string.day, 2));
+        for (ConferenceDay day : conferenceDays) {
+            mAdapter.addFragment(ListingFragment.newInstance(sessions, day), day.getShortName());
+        }
         mViewPager.setAdapter(mAdapter);
         mViewPager.setPageMargin(Utils.dpToPx(8, getBaseContext()));
         mTabLayout.setupWithViewPager(mViewPager);
-        if (savedInstanceState == null && day2.isToday()) {
-            mViewPager.setCurrentItem(1);
+        if (savedInstanceState == null) {
+            setViewToCurrentDay();
+        }
+    }
+
+    private void setViewToCurrentDay() {
+        for (ConferenceDay day : conferenceDays) {
+            if (day.isToday()) {
+                mViewPager.setCurrentItem(conferenceDays.indexOf(day));
+                break;
+            }
         }
     }
 
@@ -255,7 +269,7 @@ public class MainActivity extends AppCompatActivity
         public void notifyDataSetChanged() {
             super.notifyDataSetChanged();
             if (mFragments != null) {
-                for (ListingFragment fragment: mFragments) {
+                for (ListingFragment fragment : mFragments) {
                     fragment.notifyDataSetChanged();
                 }
             }

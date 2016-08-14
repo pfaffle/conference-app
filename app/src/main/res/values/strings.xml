@@ -8,7 +8,9 @@
     <string name="speaker_title">Speaker:</string>
     <string name="text_title">Description:</string>
     <string name="location">&#160;\u2022 %1$s</string>
-    <string name="day">Day %1$d</string>
+    <string name="day1">Thursday</string>
+    <string name="day2">Friday</string>
+    <string name="day3">Saturday</string>
     <!-- about -->
     <string name="venue">Venue</string>
     <string name="venue_text">Big Android BBQ will take place at B.Amsterdam\n\nMetro line 50 Gein / Isolatorweg – get off at stop Henk Sneevlietweg</string>
