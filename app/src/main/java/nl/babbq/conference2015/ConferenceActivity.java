@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import org.joda.time.Instant;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -81,13 +83,15 @@ public class ConferenceActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.location)).setText(String.format(getString(R.string.location),
                 session.getLocation()));
         ((TextView)findViewById(R.id.date)).setText(
-                simpleDateFormat.format(new Date(session.getStartDate()))
-                        + simpleDateFormat2.format(new Date(session.getEndDate())));
+                simpleDateFormat.format(session.getStartDate())
+                        + simpleDateFormat2.format(session.getEndDate()));
 
-        Picasso.with(getApplicationContext())
-                .load(session.getSpeakerImageUrl())
-                .transform(((BaseApplication) getApplicationContext()).mPicassoTransformation)
-                .into((ImageView) findViewById(R.id.image));
+        if (!session.getSpeakerImageUrl().equals("")) {
+            Picasso.with(getApplicationContext())
+                    .load(session.getSpeakerImageUrl())
+                    .transform(((BaseApplication) getApplicationContext()).mPicassoTransformation)
+                    .into((ImageView) findViewById(R.id.image));
+        }
         setupFAB();
     }
 

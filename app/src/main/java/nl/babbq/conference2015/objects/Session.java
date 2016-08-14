@@ -9,6 +9,8 @@ import android.text.TextUtils;
 
 import com.opencsv.CSVReader;
 
+import org.joda.time.Instant;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -38,11 +40,13 @@ public class Session implements Serializable, Parcelable {
     public static final String SESSIONS = "sessions";
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT
             = new SimpleDateFormat("d/M/yyy HH:mm:ss", Locale.ENGLISH);
+    public static final int END_DATE_COLUMN = 1;
+    public static final int START_DATE_COLUMN = 0;
 
 
     private String[] CSVLine;
-    private String startDate;
-    private String endDate;
+    private Date startDate;
+    private Date endDate;
     private String headeline;
     private String speaker;
     private String speakerImageUrl;
@@ -52,11 +56,12 @@ public class Session implements Serializable, Parcelable {
 
     public Session(@NonNull String[] fromCSV) {
         CSVLine = fromCSV;
-        startDate = fromCSV[0];
-        endDate = fromCSV[1];
         calendar = Calendar.getInstance();
         try {
-            calendar.setTime(new Date(endDate));
+            startDate = Instant.parse(fromCSV[START_DATE_COLUMN]).toDate();
+            endDate = Instant.parse(fromCSV[END_DATE_COLUMN]).toDate();
+
+            calendar.setTime(endDate);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -133,19 +138,16 @@ public class Session implements Serializable, Parcelable {
         SharedPreferences prefs = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
         Set<String> sessions = prefs.getStringSet(SESSIONS, new HashSet<String>());
         for (String sessionLine : sessions) {
-            list.add(new Session(sessionLine.split("\t")));
+            String[] splitSessionLine = sessionLine.split("\t");
+            if (splitSessionLine.length > 0) {
+                list.add(new Session(splitSessionLine));
+            }
         }
 
         Collections.sort(list, new Comparator<Session>() {
             @Override
             public int compare(Session session, Session session2) {
-                try {
-                    return SIMPLE_DATE_FORMAT.parse(session.startDate)
-                            .before(SIMPLE_DATE_FORMAT.parse(session2.startDate)) ? -1 : 1;
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                return 0;
+                return session.startDate.before(session2.startDate) ? -1 : 1;
             }
         });
         return list;
@@ -192,19 +194,19 @@ public class Session implements Serializable, Parcelable {
                 .getOr(false);
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
@@ -259,8 +261,8 @@ public class Session implements Serializable, Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.CSVLine.length);
         dest.writeStringArray(this.CSVLine);
-        dest.writeString(this.startDate);
-        dest.writeString(this.endDate);
+        dest.writeString(new Instant(this.startDate).toString());
+        dest.writeString(new Instant(this.endDate).toString());
         dest.writeString(this.headeline);
         dest.writeString(this.speaker);
         dest.writeString(this.speakerImageUrl);
@@ -272,8 +274,8 @@ public class Session implements Serializable, Parcelable {
     protected Session(Parcel in) {
         CSVLine = new String[in.readInt()];
         in.readStringArray(this.CSVLine);
-        this.startDate = in.readString();
-        this.endDate = in.readString();
+        this.startDate = Instant.parse(in.readString()).toDate();
+        this.endDate = Instant.parse(in.readString()).toDate();
         this.headeline = in.readString();
         this.speaker = in.readString();
         this.speakerImageUrl = in.readString();

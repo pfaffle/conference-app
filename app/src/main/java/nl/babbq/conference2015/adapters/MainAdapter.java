@@ -67,8 +67,8 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (holder instanceof ViewHolderHeader) {
             ((ViewHolderHeader)holder).dateStart.setText(
                     new StringBuilder()
-                            .append(simpleDateFormat.format(new Date(mData.get(position).getStartDate())))
-                            .append(simpleDateFormat2.format(new Date(mData.get(position).getEndDate())))
+                            .append(simpleDateFormat.format(mData.get(position).getStartDate()))
+                            .append(simpleDateFormat2.format(mData.get(position).getEndDate()))
                             .toString());
             ((ViewHolderHeader)holder).headline.setText(mData.get(position).getHeadeline());
 
@@ -89,8 +89,8 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else if (holder instanceof ViewHolderConference) {
             ((ViewHolderConference)holder).dateStart.setText(
                     new StringBuilder()
-                            .append(simpleDateFormat.format(new Date(mData.get(position).getStartDate())))
-                            .append(simpleDateFormat2.format(new Date(mData.get(position).getEndDate())))
+                            .append(simpleDateFormat.format(mData.get(position).getStartDate()))
+                            .append(simpleDateFormat2.format(mData.get(position).getEndDate()))
                             .toString());
 
             ((ViewHolderConference)holder).location.setText(mData.get(position).getLocation());

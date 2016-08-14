@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 
 import com.android.internal.util.Predicate;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +25,8 @@ import nl.babbq.conference2015.MainActivity;
 import nl.babbq.conference2015.R;
 import nl.babbq.conference2015.adapters.HasAdapter;
 import nl.babbq.conference2015.adapters.MainAdapter;
-import nl.babbq.conference2015.objects.Session;
 import nl.babbq.conference2015.objects.ConferenceDay;
+import nl.babbq.conference2015.objects.Session;
 import nl.babbq.conference2015.utils.DividerItemDecoration;
 import nl.babbq.conference2015.utils.ItemClickSupport;
 import nl.babbq.conference2015.utils.Utils;
@@ -124,8 +126,10 @@ public class ListingFragment extends Fragment implements HasAdapter {
 
     private static ArrayList<Session> filterList(ArrayList<Session> list, final ConferenceDay day) {
         Predicate<Session> aDay = new Predicate<Session>() {
-            public boolean apply(Session conference) {
-                return conference.getStartDate().startsWith(day.getDay());
+            public boolean apply(Session session) {
+                DateTime sessionDate = new DateTime(session.getStartDate()).withTimeAtStartOfDay();
+                DateTime conferenceDate = new DateTime(day.getDay()).withTimeAtStartOfDay();
+                return sessionDate.equals(conferenceDate);
             }
         };
         return Utils.filter(list, aDay);

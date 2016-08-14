@@ -9,18 +9,18 @@ import java.util.Date;
  */
 public class ConferenceDay implements Serializable {
     private int mDayNumeric;
-    private String mDay;
+    private Date day;
 
-    public ConferenceDay(int dayNumeric, String day) {
+    public ConferenceDay(int dayNumeric, Date day) {
         mDayNumeric = dayNumeric;
-        mDay = day;
+        this.day = day;
     }
 
     public boolean isToday() {
         Calendar cal1 = Calendar.getInstance();
         Calendar cal2 = Calendar.getInstance();
         try {
-            cal2.setTime(new Date(mDay));
+            cal2.setTime(day);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -34,7 +34,7 @@ public class ConferenceDay implements Serializable {
         return mDayNumeric;
     }
 
-    public String getDay() {
-        return mDay;
+    public Date getDay() {
+        return day;
     }
 }

@@ -22,6 +22,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import org.joda.time.Instant;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,8 +129,9 @@ public class MainActivity extends AppCompatActivity
 
     private void setupViewPager(Bundle savedInstanceState) {
         mAdapter = new MainPagerAdapter(getSupportFragmentManager());
-        ConferenceDay day1 = new ConferenceDay(1, "11/12/2015");
-        ConferenceDay day2 = new ConferenceDay(2, "11/13/2015");
+        ConferenceDay day1 = new ConferenceDay(1, Instant.parse("2016-08-18").toDate());
+        ConferenceDay day2 = new ConferenceDay(2, Instant.parse("2016-08-19").toDate());
+//        ConferenceDay day3 = new ConferenceDay(3, Instant.parse("2016-08-20").toDate());
         mAdapter.addFragment(ListingFragment.newInstance(sessions, day1), getString(R.string.day, 1));
         mAdapter.addFragment(ListingFragment.newInstance(sessions, day2), getString(R.string.day, 2));
         mViewPager.setAdapter(mAdapter);
