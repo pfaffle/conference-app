@@ -27,9 +27,9 @@
                     android:layout_width="75dp"
                     android:layout_height="100dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginRight="32dp"
                     android:layout_alignBottom="@+id/headline"
-                    android:src="@drawable/droidcon_windmolen"
+                    android:src="@drawable/abstractions_logo_hollow_white"
                     android:alpha="0.2"
                     />
                 <TextView
@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="24sp"
                     android:paddingTop="16dp"
-                    android:paddingRight="16dp"
+                    android:paddingRight="32dp"
                     android:paddingBottom="16dp"
                     android:transitionName="@string/headline"
                     android:textColor="@color/textColorPrimary"
