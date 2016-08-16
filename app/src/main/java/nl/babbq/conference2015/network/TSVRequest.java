@@ -41,12 +41,7 @@ public class TSVRequest extends Request<List<Session>> {
         List<Session> sessions;
         try {
             sessions = Session.parseInputStream(mContext, new InputStreamReader(inputStream));
-            Collections.sort(sessions, new Comparator<Session>() {
-                @Override
-                public int compare(Session session, Session session2) {
-                    return session.getStartDate().before(session2.getStartDate()) ? -1 : 1;
-                }
-            });
+            Collections.sort(sessions);
         } catch (Exception e) {
             mContext = null;
             return Response.error(new ParseError(e));

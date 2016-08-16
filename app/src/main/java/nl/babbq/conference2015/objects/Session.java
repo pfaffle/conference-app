@@ -32,9 +32,10 @@ import nl.babbq.conference2015.utils.Utils;
 
 /**
  * Session object, created by the CSV file
+ *
  * @author Arnaud Camus
  */
-public class Session implements Serializable, Parcelable {
+public class Session implements Serializable, Parcelable, Comparable<Session> {
 
     public static final String SESSIONS = "sessions";
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT
@@ -80,6 +81,7 @@ public class Session implements Serializable, Parcelable {
 
     /**
      * Save the new state of the conference.
+     *
      * @param ctx a valid context
      * @return true if the conference is favorite
      */
@@ -96,6 +98,7 @@ public class Session implements Serializable, Parcelable {
 
     /**
      * Determine if the talk has started or not
+     *
      * @return true if it is past
      */
     public boolean isPast() {
@@ -129,6 +132,7 @@ public class Session implements Serializable, Parcelable {
 
     /**
      * Loads the sessions from sharedPreferences
+     *
      * @param context a valid context
      * @return the list of talks
      */
@@ -142,24 +146,19 @@ public class Session implements Serializable, Parcelable {
                 list.add(new Session(splitSessionLine));
             }
         }
-
-        Collections.sort(list, new Comparator<Session>() {
-            @Override
-            public int compare(Session session, Session session2) {
-                return session.startDate.before(session2.startDate) ? -1 : 1;
-            }
-        });
+        Collections.sort(list);
         return list;
     }
 
     /**
      * Find the next available talk
+     *
      * @param data a list of Session objects
      * @return the position of the next item, or 0
      */
     public static int findNextEventPosition(@NonNull List<Session> data) {
         int position = 0;
-        for (Session c: data) {
+        for (Session c : data) {
             if (c.isPast()) {
                 position++;
             } else {
@@ -168,7 +167,6 @@ public class Session implements Serializable, Parcelable {
         }
         return 0;
     }
-
 
     private static void saveInPreferences(Context context, List<Session> sessions) {
         SharedPreferences.Editor prefsEditor
@@ -249,7 +247,9 @@ public class Session implements Serializable, Parcelable {
         this.text = text;
     }
 
-    public String[] getCSVLine() { return this.CSVLine; }
+    public String[] getCSVLine() {
+        return this.CSVLine;
+    }
 
     @Override
     public int describeContents() {
@@ -292,4 +292,9 @@ public class Session implements Serializable, Parcelable {
             return new Session[size];
         }
     };
+
+    @Override
+    public int compareTo(Session session) {
+        return startDate.before(session.getStartDate()) ? -1 : 1;
+    }
 }
