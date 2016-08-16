@@ -11,6 +11,8 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import nl.babbq.conference2015.objects.Session;
@@ -18,7 +20,7 @@ import nl.babbq.conference2015.objects.Session;
 /**
  * Created by nono on 11/1/15.
  */
-public class TSVRequest  extends Request<List<Session>> {
+public class TSVRequest extends Request<List<Session>> {
     private final Response.Listener<List<Session>> mListener;
     private Context mContext;
 
@@ -39,6 +41,12 @@ public class TSVRequest  extends Request<List<Session>> {
         List<Session> sessions;
         try {
             sessions = Session.parseInputStream(mContext, new InputStreamReader(inputStream));
+            Collections.sort(sessions, new Comparator<Session>() {
+                @Override
+                public int compare(Session session, Session session2) {
+                    return session.getStartDate().before(session2.getStartDate()) ? -1 : 1;
+                }
+            });
         } catch (Exception e) {
             mContext = null;
             return Response.error(new ParseError(e));
