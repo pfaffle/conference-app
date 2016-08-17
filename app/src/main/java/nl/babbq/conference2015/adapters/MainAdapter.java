@@ -93,6 +93,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             .toString());
 
             ((ViewHolderConference)holder).location.setText(mData.get(position).getLocation());
+            ((ViewHolderConference)holder).speaker.setText(mData.get(position).getSpeaker());
             ((ViewHolderConference)holder).headline.setText(mData.get(position).getTitle());
 
             if (mData.get(position).isFavorite(mContext)) {

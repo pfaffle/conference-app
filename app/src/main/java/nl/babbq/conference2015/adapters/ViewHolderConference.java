@@ -11,6 +11,7 @@ public class ViewHolderConference extends RecyclerView.ViewHolder {
 
     TextView dateStart;
     TextView location;
+    TextView speaker;
     TextView headline;
     ImageView favorite;
 
@@ -18,6 +19,7 @@ public class ViewHolderConference extends RecyclerView.ViewHolder {
         super(v);
         dateStart = (TextView) v.findViewById(R.id.dateStart);
         location = (TextView) v.findViewById(R.id.location);
+        speaker = (TextView) v.findViewById(R.id.speaker);
         headline = (TextView) v.findViewById(R.id.headline);
         favorite = (ImageView) v.findViewById(R.id.favorite);
     }
