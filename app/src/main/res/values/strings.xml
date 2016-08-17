@@ -38,6 +38,15 @@
     <string name="notification_text">We hope you can help us improve the event by providing some feedback information</string>
 
     <!-- libraries -->
+    <string name="define_BABBQ"></string>
+    <string name="library_BABBQ_author">Arnaud Camus</string>
+    <string name="library_BABBQ_libraryName">Big Android BBQ 2015 App</string>
+    <string name="library_BABBQ_libraryDescription">Simple conference app made for various conferences. Displays the list of talks and details about them: speaker, description, room, etc.</string>
+    <string name="library_BABBQ_libraryVersion">1.0.1</string>
+    <string name="library_BABBQ_libraryWebsite">https://github.com/lynfogeek/conference-app</string>
+    <string name="library_BABBQ_licenseId">apache_2_0</string>
+    <string name="library_BABBQ_isOpenSource">true</string>
+    <string name="library_BABBQ_repositoryLink">https://github.com/lynfogeek/conference-app</string>
     <string name="define_OpenCSV"></string>
     <string name="library_OpenCSV_author">Bytecode Pty Ltd</string>
     <string name="library_OpenCSV_libraryName">OpenCSV</string>
