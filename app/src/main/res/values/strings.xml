@@ -31,10 +31,6 @@
     <string name="headline">headline</string>
     <string name="speaker">speaker</string>
 
-    <!-- notification -->
-    <string name="notification_title">Thank you for attending Abstractions.io!</string>
-    <string name="notification_text">We hope you can help us improve the event by providing some feedback information</string>
-
     <!-- libraries -->
     <string name="define_BABBQ"></string>
     <string name="library_BABBQ_author">Arnaud Camus</string>
