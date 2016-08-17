@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Big Android BBQ Europe</string>
+    <string name="app_name">Abstractions.io</string>
     <string name="title_activity_conference">ConferenceActivity</string>
     <string name="action_about">About</string>
     <string name="action_more">More</string>
@@ -13,7 +13,7 @@
     <string name="day3">Saturday</string>
     <!-- about -->
     <string name="venue">Venue</string>
-    <string name="venue_text">Big Android BBQ will take place at B.Amsterdam\n\nMetro line 50 Gein / Isolatorweg – get off at stop Henk Sneevlietweg</string>
+    <string name="venue_text">Abstractions.io 2016 will take place at The David L. Lawrence Convention Center in Pittsburgh, PA.</string>
     <string name="opensource">Open Source</string>
     <string name="opensource_text">List of tools and libraries used to make this app.</string>
     <string name="author">Author</string>
@@ -33,7 +33,7 @@
     <string name="speaker">speaker</string>
 
     <!-- notification -->
-    <string name="notification_title">Thank you for attending Big Android BBQ Europe</string>
+    <string name="notification_title">Thank you for attending Abstractions.io</string>
     <string name="notification_text">We hope you can help us improve the event by providing some feedback information</string>
 
     <!-- libraries -->
