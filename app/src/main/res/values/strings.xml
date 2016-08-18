@@ -65,5 +65,12 @@
     <string name="library_PrettySharedPreferences_licenseId">apache_2_0</string>
     <string name="library_PrettySharedPreferences_isOpenSource">true</string>
     <string name="library_PrettySharedPreferences_repositoryLink">https://github.com/talenguyen/PrettySharedPreferences</string>
+    <string name="author0">Jason Owen</string>
+    <string name="author0_text">Jason Owen is a Software Engineer at Tripwire, Inc.</string>
+    <string name="author0_url">https://twitter.com/jasonaowen</string>
+    <string name="author1">Craig Meinschein</string>
+    <string name="author1_text">Craig Meinschein is a Software Engineer at Tripwire, Inc.</string>
+    <string name="author1_url">https://twitter.com/cmeinsch</string>
+    <string name="action_authors">Authors</string>
 
 </resources>
