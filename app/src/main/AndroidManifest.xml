@@ -31,6 +31,10 @@
             android:name="nl.babbq.conference2015.AboutActivity"
             android:label="@string/action_about" >
         </activity>
+        <activity
+            android:name="nl.babbq.conference2015.AuthorsActivity"
+            android:label="@string/action_authors" >
+        </activity>
     </application>
 
 </manifest>

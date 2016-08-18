@@ -86,7 +86,8 @@ public class AboutActivity extends AppCompatActivity implements AdapterView.OnIt
                 startActivity(i1);
                 break;
             case 2: // Authors
-                // TODO make this a list view of both authors and links to both our Twitters
+                Intent i2 = new Intent(getApplicationContext(), AuthorsActivity.class);
+                startActivity(i2);
                 break;
         }
     }
