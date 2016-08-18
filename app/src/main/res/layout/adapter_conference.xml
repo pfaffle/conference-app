@@ -23,13 +23,25 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/speaker"
+        android:layout_below="@+id/dateStart"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/headline"
         android:transitionName="@string/headline"
         android:textColor="@color/textColorSecondary"
-        android:textSize="20sp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        android:layout_below="@+id/dateStart" />
+        android:textSize="18sp"
+        android:layout_below="@+id/speaker"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="18dp"
@@ -39,4 +51,5 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         />
+
 </RelativeLayout>
