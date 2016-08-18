@@ -8,8 +8,8 @@
         <item name="toolbarStyle">@style/MyToolBar</item>
 
         <item name="colorControlNormal">#FFF</item>
-        <item name="colorControlActivated">@color/babbq_purple</item>
-        <item name="colorControlHighlight">@color/babbq_blue</item>
+        <item name="colorControlActivated">@color/purple</item>
+        <item name="colorControlHighlight">@color/blue</item>
     </style>
 
     <style name="AppThemeBar" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -18,8 +18,8 @@
         <item name="colorAccent">@color/accentColor</item>
 
         <item name="colorControlNormal">#FFF</item>
-        <item name="colorControlActivated">@color/babbq_purple</item>
-        <item name="colorControlHighlight">@color/babbq_blue</item>
+        <item name="colorControlActivated">@color/purple</item>
+        <item name="colorControlHighlight">@color/blue</item>
     </style>
 
     <style name="MyToolBar"

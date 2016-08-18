@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Big Android BBQ Europe</string>
+    <string name="app_name">Abstractions.io 2016</string>
     <string name="title_activity_conference">ConferenceActivity</string>
     <string name="action_about">About</string>
     <string name="action_more">More</string>
@@ -13,11 +13,12 @@
     <string name="day3">Saturday</string>
     <!-- about -->
     <string name="venue">Venue</string>
-    <string name="venue_text">Big Android BBQ will take place at B.Amsterdam\n\nMetro line 50 Gein / Isolatorweg – get off at stop Henk Sneevlietweg</string>
+    <string name="venue_map_url">https://www.google.com/maps/place/David+L.+Lawrence+Convention+Center/@40.4454067,-80.0052605,15z/data=!3m1!5s0x8834f3e2e996afd9:0x3bff6f9c14520247!4m12!1m6!3m5!1s0x0:0x36ba9693af60a61!2sDavid+L.+Lawrence+Convention+Center!8m2!3d40.4457986!4d-79.9961624!3m4!1s0x0:0x36ba9693af60a61!8m2!3d40.4457986!4d-79.9961624</string>
+    <string name="venue_text">Abstractions.io 2016 will take place at The David L. Lawrence Convention Center in Pittsburgh, PA.</string>
     <string name="opensource">Open Source</string>
     <string name="opensource_text">List of tools and libraries used to make this app.</string>
-    <string name="author">Author</string>
-    <string name="author_text">This app has been developed by Arnaud Camus.</string>
+    <string name="author">Authors</string>
+    <string name="author_text">This app has been developed by Jason Owen and Craig Meinschein.</string>
     <string name="evaluation">Evaluation</string>
     <string name="evaluation_text">Please give us feedback on the event via this form.</string>
     <string name="coffee_break">Coffee break</string>
@@ -33,10 +34,19 @@
     <string name="speaker">speaker</string>
 
     <!-- notification -->
-    <string name="notification_title">Thank you for attending Big Android BBQ Europe</string>
+    <string name="notification_title">Thank you for attending Abstractions.io!</string>
     <string name="notification_text">We hope you can help us improve the event by providing some feedback information</string>
 
     <!-- libraries -->
+    <string name="define_BABBQ"></string>
+    <string name="library_BABBQ_author">Arnaud Camus</string>
+    <string name="library_BABBQ_libraryName">Big Android BBQ 2015 App</string>
+    <string name="library_BABBQ_libraryDescription">Simple conference app made for various conferences. Displays the list of talks and details about them: speaker, description, room, etc.</string>
+    <string name="library_BABBQ_libraryVersion">1.0.1</string>
+    <string name="library_BABBQ_libraryWebsite">https://github.com/lynfogeek/conference-app</string>
+    <string name="library_BABBQ_licenseId">apache_2_0</string>
+    <string name="library_BABBQ_isOpenSource">true</string>
+    <string name="library_BABBQ_repositoryLink">https://github.com/lynfogeek/conference-app</string>
     <string name="define_OpenCSV"></string>
     <string name="library_OpenCSV_author">Bytecode Pty Ltd</string>
     <string name="library_OpenCSV_libraryName">OpenCSV</string>
