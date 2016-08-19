@@ -32,10 +32,8 @@ import nl.babbq.conference2015.animations.BugDroid;
 import nl.babbq.conference2015.fragments.ListingFragment;
 import nl.babbq.conference2015.network.TSVRequest;
 import nl.babbq.conference2015.network.VolleySingleton;
-import nl.babbq.conference2015.objects.Session;
 import nl.babbq.conference2015.objects.ConferenceDay;
-import nl.babbq.conference2015.utils.PreferenceManager;
-import nl.babbq.conference2015.utils.SendNotification;
+import nl.babbq.conference2015.objects.Session;
 import nl.babbq.conference2015.utils.Utils;
 
 
@@ -116,7 +114,6 @@ public class MainActivity extends AppCompatActivity
                 }
             });
         }
-        trackOpening();
     }
 
     @Override
@@ -194,24 +191,6 @@ public class MainActivity extends AppCompatActivity
             mVolley.addToRequestQueue(new TSVRequest(this, Request.Method.GET, URL, this, this));
             mAnimatedBugDroid.setLoading(true);
             mAnimatedBugDroid.startAnimation();
-        }
-    }
-
-    /**
-     * Track how many times the Activity is launched and
-     * send a push notification {@link nl.babbq.conference2015.utils.SendNotification}
-     * to ask the user for feedback on the event.
-     */
-    private void trackOpening() {
-        PreferenceManager prefManager =
-                new PreferenceManager(getSharedPreferences("MyPref", Context.MODE_PRIVATE));
-        long nb = prefManager.openingApp().getOr(0L);
-        prefManager.openingApp()
-                .put(++nb)
-                .apply();
-
-        if (nb == 10) {
-            SendNotification.feedbackForm(this);
         }
     }
 
